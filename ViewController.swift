@@ -10,8 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // Code under was mapped to a button that when clicked would connect to
+    // Particle Server with hard coded email and password and get list of devices
+    /*
     @IBAction func loginAndDisplaysDevices(_ sender: Any) {
-        
+     
         SparkCloud.sharedInstance().login(withUser: "<#email#>", password: "<#password#>") { (error:Error?) -> Void in
             if error != nil {
                 print("Wrong credentials or no internet connectivity, please try again")
@@ -33,6 +36,31 @@ class ViewController: UIViewController {
                 }
             }
         }        
+        
+    }
+    */
+    
+    @IBOutlet weak var emailLoginTextField: UITextField!
+    
+    @IBOutlet weak var passwordLoginTextField: UITextField!
+    
+    @IBAction func loginToParticleServerButton(_ sender: Any) {
+        
+        let email = emailLoginTextField.text
+        let password = passwordLoginTextField.text
+        
+        SparkCloud.sharedInstance().login(withUser: email!, password: password!) { (error:Error?) -> Void in
+                if error != nil {
+                    print("Wrong credentials or no internet connectivity, please try again")
+                }
+                else {
+                    //print("Logged in")
+                    self.performSegue(withIdentifier: "goToDevicesListTableViewControllerSegue", sender: nil)
+                    
+                }
+        }
+        
+        
         
     }
     
